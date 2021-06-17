@@ -6,6 +6,11 @@ export default function (state = httpState, action) {
       return {
         ...httpState,
         httpCode: action.httpCode
+      };
+    case 'SEARCH_HTTP_CODE':
+      return {
+        ...httpState,
+        httpReturn: action.httpReturn
       }
     default: 
     return httpState;

@@ -6,13 +6,16 @@ import { connect } from 'react-redux';
 import { changeHttpCode } from "../store/actions/httpList";
 
 
+// 改变code  搜索code,改变return  
 class IndexPage extends Component {
   render () {
 
   
-  const { httpCode } = this.props;
+  const { httpCode, httpMsg, httpReturn } = this.props;
   
-  console.log(httpCode)
+  console.log('httpcode_______', httpCode)
+  console.log('msg________', httpMsg)
+  console.log('return___________', httpReturn)
   return (
   <div>
     
@@ -28,7 +31,9 @@ export default connect(
 
   function mapStateToProps (state) {
     return {
-      httpCode: state.httpList.httpCode
+      httpCode: state.httpList.httpCode,
+      httpMsg: state.httpList.httpMsg,
+      httpReturn: state.httpList.httpReturn,
     }
   },
   function mapDispatchToProps (dispatch) {
