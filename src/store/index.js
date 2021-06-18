@@ -6,6 +6,6 @@ const allReducers = combineReducers({
   httpList: httpListReducers
 })
 
-const store = createStore(allReducers, httpListState);
+const store = createStore(allReducers, {httpList:httpListState});
 
 export default store;

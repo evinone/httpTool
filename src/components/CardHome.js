@@ -1,14 +1,56 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { history } from '../utils/history';
+import { changeHttpCode, searchHttpCode } from '../store/actions/httpList';
 
-const CardHome = () => {
-  return (
-    <>
-    <div>
-      <h2>404</h2>
-      <p>请求失败，请求所希望得到的资源未被在服务器上发现。没有信息能够告诉用户这个状况到底是暂时的还是永久的。假如服务器知道情况的话，应当使用410状态码来告知旧资源因为某些内部的配置机制问题，已经永久的不可用，而且没有任何可以跳转的地址。404这个状态码被广泛应用于当服务器不想揭示到底为何请求被拒绝或者没有其他适合的响应可用的情况下。</p>
-    </div>
-    </>
-  )
+const Style = {
+  maxWidth: 1300,
+  minHeight: 574,
+  border: '1px solid',
+  textAlign: 'center'
+};
+
+class CardHome extends Component {
+  render () {
+    
+    const { httpReturn,onChangeHttpCode,onSearchHttpCode } = this.props;
+
+    const toCard = () => {
+      let code = ' ';
+      onChangeHttpCode(code)
+      onSearchHttpCode(code)
+      history.push('/');
+    };
+
+    return (
+      <>
+      <div style={Style}>
+        <button
+          onClick={() =>{
+          toCard()
+          }}
+          style={{ position: 'absolute', left: 0 }}
+        >
+          返回</button>
+        <h2>{httpReturn[0].id}</h2>
+        <h3>{httpReturn[0].msg}</h3>
+      </div>
+      </>
+    )
 }
 
-export default CardHome
+}
+export default connect(
+  function mapStateToProps (state) {
+    return {
+      httpReturn: state.httpList.httpReturn
+    }
+  },
+
+  function mapDispatchToProps (dispatch) {
+    return {
+      onChangeHttpCode: (code) => dispatch(changeHttpCode(code)),
+      onSearchHttpCode: (code) => dispatch(searchHttpCode(code))
+    }
+  }
+)(CardHome);

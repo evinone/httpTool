@@ -3,16 +3,30 @@ import { Input } from 'antd';
 
 const { Search } = Input;
 
-const onSearch = () => {
-    console.log('onSearch__________', )
+const inputStyle = {
+  width: '60%',
+  // textAlign: 'center',
+  marginLeft: '10%',
 };
 
-const onChange = (e) => {
-  console.log('onChange_____', e.target.value)
+const useInput = ({ changeHttpCode, searchHttpCode, changeHttpReturn }) => {
+
+const onSearch = (code) => {
+    console.log(code)
+    searchHttpCode(code)
 };
 
-const InputSearch = () => {
+const onChange = (event) => {
+  const code = event.target.value
+  changeHttpCode(code)
+  onSearch(code)
+};
 
+return {onSearch, onChange}
+}
+
+const InputSearch = ({ changeHttpCode, searchHttpCode }) => {
+  const {onSearch, onChange} = useInput({ changeHttpCode, searchHttpCode })
   return (
     <>
       <Search 
@@ -21,6 +35,7 @@ const InputSearch = () => {
         size="large"
         onChange={ onChange }
         onSearch={ onSearch }
+        style={inputStyle}
       >
       </Search>
     </>

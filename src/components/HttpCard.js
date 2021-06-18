@@ -1,30 +1,48 @@
 import React from 'react';
 import { Card, Row, Col } from 'antd';
+import { history } from '../utils/history';
 
 const cardStyle = {
-  border: '1px solid',
+  margin: '16px',
+  minHeight: '280px'
 };
-const rowStyle = {
-
-}
 const colStyle = {
   display: 'inline-block'
 };
 
-const cardOnClick = () => {
-  console.log('跳转CardHome________')
-};
+const DrawCard = ({httpReturn, searchHttpCode}) => {
 
-const HttpCard = () => {
+  const cardOnClick = (code) => {
+    searchHttpCode(code);
+    history.push('/home');
 
+  };
+
+  return <>
+  {
+      httpReturn.map((val, index) => {
+        return (
+          <Col span={7} style={ colStyle } key={index} >
+            <Card
+            key={index}
+            title={val.id}
+            onClick={() => cardOnClick(val.id)}
+            style={cardStyle}
+            >
+              <span>{val.msg}</span>
+            </Card>
+          </Col>
+        )
+      })
+  }
+  </>
+}
+
+const HttpCard = ({httpReturn, searchHttpCode}) => {
   return (
-    <div  style={ cardStyle }>
+    <div>
       <Row>
-        <Col span={6} style={ colStyle }>
-        <Card title="404" onClick={cardOnClick}>
-          <span>404是由于</span>
-        </Card>
-        </Col>
+          <DrawCard httpReturn={ httpReturn } searchHttpCode={ searchHttpCode } />
       </Row>
     </div>
   )
