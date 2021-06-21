@@ -3,6 +3,7 @@
 	"version": "1.0.0",
 	"description": "react",
 	"main": "index.js",
+	"homepage": "./",
 	"license": "MIT",
 	"private": true,
 	"devDependencies": {
